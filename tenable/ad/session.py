@@ -9,7 +9,7 @@ from tenable.base.platform import APIPlatform
 from .about import AboutAPI
 from .api_keys import APIKeyAPI
 from .directories.api import DirectoriesAPI
-
+from .widget.api import WidgetsAPI
 
 
 class TenableAD(APIPlatform):
@@ -59,3 +59,7 @@ class TenableAD(APIPlatform):
         :doc:`Tenable.ad Directories APIs <directories>`.
         '''
         return DirectoriesAPI(self)
+
+    @property
+    def widgets(self):
+        return WidgetsAPI(self)
