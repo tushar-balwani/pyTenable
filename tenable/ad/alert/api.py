@@ -55,7 +55,7 @@ class AlertsAPI(APIEndpoint):
             ...     )
         '''
         param = self._schema.dump(self._schema.load(kwargs))
-        return self._schema.load(self._api.get(f'profile/{profile_id}/alerts', param=param), many=True)
+        return self._schema.load(self._api.get(f'profile/{profile_id}/alerts', params=param), many=True)
 
     def details(self,
                 alert_id: str) -> Dict:

@@ -150,7 +150,7 @@ class ADObjectAPI(APIEndpoint):
             self._api.get(f"infrastructures/{infrastructure_id}/"
                           f"directories/{directory_id}/"
                           f"events/{event_id}/"
-                          f"ad-objects/{ad_object_id}/changes", param=param),
+                          f"ad-objects/{ad_object_id}/changes", params=param),
             many=True)
 
     def search(self,
@@ -213,5 +213,5 @@ class ADObjectAPI(APIEndpoint):
         ))
 
         return self._schema.load(
-            self._api.post(f'profiles/{profile_id}/checkers/{checker_id}/ad-objects/search', param=param, json=payload),
+            self._api.post(f'profiles/{profile_id}/checkers/{checker_id}/ad-objects/search', params=param, json=payload),
             many=True)

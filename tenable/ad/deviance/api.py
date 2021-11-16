@@ -67,7 +67,7 @@ class DeviancesAPI(APIEndpoint):
         '''
         param = self._schema.dump(kwargs)
         return self._schema.load(
-            self._api.get(f'infrastructures/{infrastructure_id}/directories/{directory_id}/deviances', param=param),
+            self._api.get(f'infrastructures/{infrastructure_id}/directories/{directory_id}/deviances', params=param),
             many=True)
 
     def history_details(self,
@@ -181,7 +181,7 @@ class DeviancesAPI(APIEndpoint):
                           f'infrastructures/{infrastructure_id}/'
                           f'directories/{directory_id}/'
                           f'checkers/{checker_id}/deviances',
-                          param=param),
+                          params=param),
             many=True)
 
     def list_by_checker(self,
@@ -260,7 +260,7 @@ class DeviancesAPI(APIEndpoint):
             'ignoreUntil': ignore_until
         }))
 
-        self._api.patch(f'profiles/{profile_id}/checkers/{checker_id}/deviances', param=param, json=payload)
+        self._api.patch(f'profiles/{profile_id}/checkers/{checker_id}/deviances', params=param, json=payload)
 
     def search(self,
                profile_id: str,
@@ -310,7 +310,7 @@ class DeviancesAPI(APIEndpoint):
         ))
 
         return self._schema.load(
-            self._api.post(f'profiles/{profile_id}/checkers/{checker_id}/ad-objects/{ad_object_id}', param=param,
+            self._api.post(f'profiles/{profile_id}/checkers/{checker_id}/ad-objects/{ad_object_id}', params=param,
                            json=payload),
             many=True)
 
@@ -361,7 +361,7 @@ class DeviancesAPI(APIEndpoint):
         }))
 
         self._api.patch(f'profiles/{profile_id}/checkers/{checker_id}/ad-objects/{ad_object_id}/deviances',
-                        param=param, json=payload)
+                        params=param, json=payload)
 
     def list_by_event(self,
                       profile_id: str,
@@ -416,5 +416,5 @@ class DeviancesAPI(APIEndpoint):
             self._api.post(f'profile/{profile_id}/'
                            f'infrastructures/{infrastructure_id}/'
                            f'directories/{directory_id}/'
-                           f'events/{event_id}/deviances', param=param, json=payload),
+                           f'events/{event_id}/deviances', params=param, json=payload),
             many=True)
