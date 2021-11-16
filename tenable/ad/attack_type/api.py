@@ -14,7 +14,7 @@ Methods available on ``tad.attack_types``:
 
 '''
 from typing import List, Dict
-from tenable.ad.attack.schema import AttackTypeSchema
+from tenable.ad.attack_type.schema import AttackTypeSchema
 from tenable.base.endpoint import APIEndpoint
 
 
@@ -33,4 +33,4 @@ class AttackTypeAPI(APIEndpoint):
 
             >>> tad.attacks.list_types()
         '''
-        return self._schema.load(self._api.get('attack-types'))
+        return self._schema.load(self._api.get('attack-types'), many=True)

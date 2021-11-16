@@ -73,7 +73,7 @@ class EmailNotifiersAPI(APIEndpoint):
             ...     )
         '''
         payload = self._schema.dump(self._schema.load(kwargs))
-        return self._schema.load(self._post(json=payload))
+        return self._schema.load(self._post(json=payload), many=True)
 
     def details(self,
                 email_notifier_id: str) -> Dict:

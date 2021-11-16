@@ -90,7 +90,7 @@ class UsersAPI(APIEndpoint):
             'password': password
         }, kwargs))
 
-        return self._schema.load(self._post(json=payload))
+        return self._schema.load(self._post(json=payload), many=True)
 
     def info(self) -> Dict:
         '''
@@ -216,7 +216,7 @@ class UsersAPI(APIEndpoint):
 
             >>> tad.users.log_out()
         '''
-        return self._schema.load(self._post())
+        self._post()
 
     def create_password(self, email: str) -> None:
         '''
@@ -237,7 +237,7 @@ class UsersAPI(APIEndpoint):
         payload = self._schema.dump({
             'email': email
         })
-        return self._schema.load(self._post(f'forgotten-password', json=payload))
+        self._post(f'forgotten-password', json=payload)
 
     def retrieve_password(self,
                           token: str,
@@ -266,7 +266,7 @@ class UsersAPI(APIEndpoint):
             'token': token,
             'newPassword': new_password
         }))
-        return self._schema.load(self._post(f'retrieve-password', json=payload))
+        self._post(f'retrieve-password', json=payload)
 
     def change_password(self,
                         old_password: str,
@@ -295,7 +295,7 @@ class UsersAPI(APIEndpoint):
             'oldPassword': old_password,
             'newPassword': new_password
         }))
-        return self._schema.load(self._patch("password", json=payload))
+        self._patch("password", json=payload)
 
     def update_user_roles(self,
                           user_id: str,

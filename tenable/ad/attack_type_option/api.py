@@ -15,7 +15,7 @@ Methods available on ``tad.attack_type_options``:
 '''
 from typing import List, Dict
 from restfly.utils import dict_merge
-from tenable.ad.attack.schema import AttackTypeOptionsSchema
+from tenable.ad.attack_type_option.schema import AttackTypeOptionsSchema
 from tenable.base.endpoint import APIEndpoint
 
 

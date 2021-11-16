@@ -72,7 +72,7 @@ class UsersAPI(APIEndpoint):
             'directories': directories
         })
 
-        return self._schema.load(self._post(json=payload))
+        return self._schema.load(self._post(json=payload), many=True)
 
     def details(self,
                 profile_id: str) -> Dict:

@@ -71,7 +71,7 @@ class RolesAPI(APIEndpoint):
             'description': description
         })
 
-        return self._schema.load(self._post(json=payload))
+        return self._schema.load(self._post(json=payload), many=True)
 
     def default_roles(self) -> List[Dict]:
         '''

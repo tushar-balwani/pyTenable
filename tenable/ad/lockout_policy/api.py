@@ -37,7 +37,7 @@ class LDAPConfigurationAPI(APIEndpoint):
         return self._get()
 
     def update(self,
-               **kwargs) -> Dict:
+               **kwargs) -> None:
         '''
         update the lockout policy
 
@@ -53,10 +53,10 @@ class LDAPConfigurationAPI(APIEndpoint):
 
 
         Return:
-            The lockout policy object
+            None
 
         Example:
             >>> tad.lockout_policy.update() # not completed yet
         '''
         payload = self._schema.dump(self._schema.load(kwargs))
-        return self._schema.load(self._patch(json=payload))
+        self._patch(json=payload)

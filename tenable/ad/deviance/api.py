@@ -271,6 +271,12 @@ class DeviancesAPI(APIEndpoint):
         Search all deviances by profile by checker by AD object.
 
         Args:
+            profile_id:
+                The profile instance identifier.
+            checker_id;
+                The checker identifier.
+            ad_object_id:
+                The AD object identifier.
             per_page:
                 ???
             page:
