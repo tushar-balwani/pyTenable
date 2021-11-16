@@ -65,9 +65,9 @@ class DeviancesAPI(APIEndpoint):
             ...     resolved=0
             ...     )
         '''
-        param = self._schema.dump(kwargs)
+        params = self._schema.dump(kwargs)
         return self._schema.load(
-            self._api.get(f'infrastructures/{infrastructure_id}/directories/{directory_id}/deviances', params=param),
+            self._api.get(f'infrastructures/{infrastructure_id}/directories/{directory_id}/deviances', params=params),
             many=True)
 
     def history_details(self,
@@ -175,13 +175,13 @@ class DeviancesAPI(APIEndpoint):
             ...     page='1'
             ...     )
         '''
-        param = self._schema.dump(kwargs)
+        params = self._schema.dump(kwargs)
         return self._schema.load(
             self._api.get(f'profile/{profile_id}/'
                           f'infrastructures/{infrastructure_id}/'
                           f'directories/{directory_id}/'
                           f'checkers/{checker_id}/deviances',
-                          params=param),
+                          params=params),
             many=True)
 
     def list_by_checker(self,
@@ -251,7 +251,7 @@ class DeviancesAPI(APIEndpoint):
             ...     ignore_until=str(datetime.datetime.now())
             ...     )
         '''
-        param = self._schema.dump(self._schema.load({
+        params = self._schema.dump(self._schema.load({
             'profileId': q_profile_id,
             'checkerId': q_checker_id
         }))
@@ -260,7 +260,7 @@ class DeviancesAPI(APIEndpoint):
             'ignoreUntil': ignore_until
         }))
 
-        self._api.patch(f'profiles/{profile_id}/checkers/{checker_id}/deviances', params=param, json=payload)
+        self._api.patch(f'profiles/{profile_id}/checkers/{checker_id}/deviances', params=params, json=payload)
 
     def search(self,
                profile_id: str,
@@ -295,7 +295,7 @@ class DeviancesAPI(APIEndpoint):
             ...     show_ignored=True
             ...     )
         '''
-        param = self._schema.dump(self._schema.load(
+        params = self._schema.dump(self._schema.load(
             dict_clean({
                 'perPage': kwargs.get('per_page'),
                 'page': kwargs.get('page')
@@ -310,7 +310,7 @@ class DeviancesAPI(APIEndpoint):
         ))
 
         return self._schema.load(
-            self._api.post(f'profiles/{profile_id}/checkers/{checker_id}/ad-objects/{ad_object_id}', params=param,
+            self._api.post(f'profiles/{profile_id}/checkers/{checker_id}/ad-objects/{ad_object_id}', params=params,
                            json=payload),
             many=True)
 
@@ -350,7 +350,7 @@ class DeviancesAPI(APIEndpoint):
         Example:
                 >>> tad.deviances.update_on_ado_and_checker()
         '''
-        param = self._schema.dump(self._schema.load({
+        params = self._schema.dump(self._schema.load({
             'profileId': q_profile_id,
             'checkerId': q_checker_id,
             'adObjectId': q_ad_object_id
@@ -361,7 +361,7 @@ class DeviancesAPI(APIEndpoint):
         }))
 
         self._api.patch(f'profiles/{profile_id}/checkers/{checker_id}/ad-objects/{ad_object_id}/deviances',
-                        params=param, json=payload)
+                        params=params, json=payload)
 
     def list_by_event(self,
                       profile_id: str,
@@ -400,7 +400,7 @@ class DeviancesAPI(APIEndpoint):
         Example:
             >>> tad.deviances.list_by_event()
         '''
-        param = self._schema.dump(self._schema.load(
+        params = self._schema.dump(self._schema.load(
             dict_clean({
                 'page': kwargs.get('page'),
                 'perPage': kwargs.get('per_page')
@@ -416,5 +416,5 @@ class DeviancesAPI(APIEndpoint):
             self._api.post(f'profile/{profile_id}/'
                            f'infrastructures/{infrastructure_id}/'
                            f'directories/{directory_id}/'
-                           f'events/{event_id}/deviances', params=param, json=payload),
+                           f'events/{event_id}/deviances', params=params, json=payload),
             many=True)

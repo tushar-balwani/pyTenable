@@ -145,12 +145,12 @@ class ADObjectAPI(APIEndpoint):
 
             >>> tad.ad_object.get_changes(1, 1, 1, 1)
         '''
-        param = self._schema.dump(self._schema.load(kwargs))
+        params = self._schema.dump(self._schema.load(kwargs))
         return self._schema.load(
             self._api.get(f"infrastructures/{infrastructure_id}/"
                           f"directories/{directory_id}/"
                           f"events/{event_id}/"
-                          f"ad-objects/{ad_object_id}/changes", params=param),
+                          f"ad-objects/{ad_object_id}/changes", params=params),
             many=True)
 
     def search(self,
@@ -194,7 +194,7 @@ class ADObjectAPI(APIEndpoint):
 
             >>> tad.ad_object.search() # need to update
         '''
-        param = self._schema.dump(self._schema.load(
+        params = self._schema.dump(self._schema.load(
             dict_clean({
                 'page': kwargs.get('page'),
                 'perPage': kwargs.get('per_page')
@@ -213,5 +213,5 @@ class ADObjectAPI(APIEndpoint):
         ))
 
         return self._schema.load(
-            self._api.post(f'profiles/{profile_id}/checkers/{checker_id}/ad-objects/search', params=param, json=payload),
+            self._api.post(f'profiles/{profile_id}/checkers/{checker_id}/ad-objects/search', params=params, json=payload),
             many=True)
