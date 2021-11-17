@@ -18,7 +18,7 @@ from tenable.ad.license.schema import LicenseSchema
 from tenable.base.endpoint import APIEndpoint
 
 
-class LDAPConfigurationAPI(APIEndpoint):
+class LicenseAPI(APIEndpoint):
     _path = 'license'
     _schema = LicenseSchema()
 
@@ -34,15 +34,15 @@ class LDAPConfigurationAPI(APIEndpoint):
 
             >>> tad.license.details()
         '''
-        return self._get()
+        return self._schema.load(self._get())
 
     def create(self,
-               license: str) -> Dict:
+               ad_license: str) -> Dict:
         '''
         create new license singleton
 
         Args:
-            license:
+            ad_license:
                 ???
 
 
@@ -50,9 +50,9 @@ class LDAPConfigurationAPI(APIEndpoint):
             The license object
 
         Example:
-            >>> tad.ldap_configuration.update() # not completed yet
+            >>> tad.license.create() # not completed yet
         '''
         payload = self._schema.dump(self._schema.load({
-            'license': license
+            'license': ad_license
         }))
-        return self._schema.load(self._patch(json=payload))
+        return self._schema.load(self._post(json=payload))

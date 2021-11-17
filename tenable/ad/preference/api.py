@@ -34,7 +34,7 @@ class PreferenceAPI(APIEndpoint):
 
             >>> tad.preferences.details()
         '''
-        return self._get()
+        return self._schema.load(self._get())
 
     def update(self,
                **kwargs) -> Dict:
@@ -54,5 +54,5 @@ class PreferenceAPI(APIEndpoint):
         Example:
             >>> tad.preferences.update() # not completed yet
         '''
-        payload = self._schema.dump(self._schema.load(kwargs))
+        payload = self._schema.dump(kwargs)
         return self._schema.load(self._patch(json=payload))

@@ -34,10 +34,10 @@ class LDAPConfigurationAPI(APIEndpoint):
 
             >>> tad.ldap_configuration.details()
         '''
-        return self._get()
+        return self._schema.load(self._get())
 
     def update(self,
-               *kwargs) -> Dict:
+               **kwargs) -> Dict:
         '''
         update LDAP configuration singleton
 
@@ -46,7 +46,7 @@ class LDAPConfigurationAPI(APIEndpoint):
                 ???
             url:
                 ???
-            search_userDN:
+            search_user_dn:
                 ???
             search_user_password:
                 ???
@@ -69,5 +69,5 @@ class LDAPConfigurationAPI(APIEndpoint):
         Example:
             >>> tad.ldap_configuration.update() # not completed yet
         '''
-        payload = self._schema.dump(self._schema.load(kwargs))
+        payload = self._schema.dump(kwargs)
         return self._schema.load(self._patch(json=payload))

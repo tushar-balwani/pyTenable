@@ -181,7 +181,7 @@ class UsersAPI(APIEndpoint):
 
             >>> tad.users.delete(user_id=1)
         '''
-        self._api.delete(f"{user_id}")
+        self._delete(f"{user_id}")
 
     def log_in(self, auth_token: str) -> None:
         '''
@@ -189,7 +189,7 @@ class UsersAPI(APIEndpoint):
 
         Args:
             auth_token:
-                The user instance identifier.
+                The auth token.
 
 
         Returns:
@@ -202,7 +202,8 @@ class UsersAPI(APIEndpoint):
         payload = self._schema.dump(self._schema.load({
             'authToken': auth_token
         }))
-        return self._schema.load(self._post(json=payload))
+
+        return self._schema.load(self._api.post('login', json=payload))
 
     def log_out(self) -> None:
         '''
@@ -216,7 +217,7 @@ class UsersAPI(APIEndpoint):
 
             >>> tad.users.log_out()
         '''
-        self._post()
+        self._api.post('logout')
 
     def create_password(self, email: str) -> None:
         '''

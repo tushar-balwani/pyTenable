@@ -40,7 +40,7 @@ class RolesAPI(APIEndpoint):
 
             >>> tad.roles.list()
         '''
-        return self._get()
+        return self._schema.load(self._get(), many=True)
 
     def create(self,
                name: str,
@@ -86,7 +86,7 @@ class RolesAPI(APIEndpoint):
 
             >>> tad.roles.default_roles()
         '''
-        return self._get('user-creation-defaults')
+        return self._schema.load(self._get('user-creation-defaults'), many=True)
 
     def details(self, role_id: str) -> Dict:
         '''
@@ -134,7 +134,7 @@ class RolesAPI(APIEndpoint):
             ...     )
         '''
         payload = self._schema.dump(kwargs)
-        return self._schema.load(self._api.patch(f"{role_id}", json=payload))
+        return self._schema.load(self._patch(f"{role_id}", json=payload))
 
     def delete(self, role_id: str) -> None:
         '''
@@ -154,7 +154,7 @@ class RolesAPI(APIEndpoint):
             ...     role_id=1,
             ...     )
         '''
-        self._api.delete(f"{role_id}")
+        self._delete(f"{role_id}")
 
     def copy_role(self,
                   from_id: str,

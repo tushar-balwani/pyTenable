@@ -18,24 +18,28 @@ class UserSchema(CamelCaseSchema):
     identifier = fields.Str()
     provider = fields.Str()
     eula_version = fields.Int()
-    authToken = fields.Str()
+
+    # input fields
+    auth_token = fields.Str()
+    old_password = fields.Str()
+    new_password = fields.Str()
 
 
 class UserPermissionsSchema(CamelCaseSchema):
     entity_name = fields.Str()
     action = fields.Str()
     entity_ids = fields.List(fields.Int())
-    dynamic_ids = fields.Str()
+    dynamic_id = fields.Str()
 
 
 class UserRolesSchema(CamelCaseSchema):
     id = fields.Int()
     name = fields.Str()
     description = fields.Str()
-    permissions = fields.Nested(UserPermissionsSchema)
+    permissions = fields.Nested(UserPermissionsSchema, many=True)
 
 
 class UserInfoSchema(UserSchema):
     internal = fields.Bool()
-    role = fields.Nested(UserRolesSchema)
+    roles = fields.Nested(UserRolesSchema, many=True)
 

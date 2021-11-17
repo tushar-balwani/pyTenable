@@ -9,6 +9,12 @@ from tenable.base.platform import APIPlatform
 from .about import AboutAPI
 from .api_keys import APIKeyAPI
 from .directories.api import DirectoriesAPI
+from .ldap_configuration.api import LDAPConfigurationAPI
+from .license.api import LicenseAPI
+from .lockout_policy.api import LockoutPolicyAPI
+from .preference.api import PreferenceAPI
+from .role.api import RolesAPI
+from .user.api import UsersAPI
 from .widget.api import WidgetsAPI
 
 
@@ -59,6 +65,30 @@ class TenableAD(APIPlatform):
         :doc:`Tenable.ad Directories APIs <directories>`.
         '''
         return DirectoriesAPI(self)
+
+    @property
+    def ldap_configurations(self):
+        return LDAPConfigurationAPI(self)
+
+    @property
+    def license(self):
+        return LicenseAPI(self)
+
+    @property
+    def lockout_policy(self):
+        return LockoutPolicyAPI(self)
+
+    @property
+    def preferences(self):
+        return PreferenceAPI(self)
+
+    @property
+    def roles(self):
+        return RolesAPI(self)
+
+    @property
+    def users(self):
+        return UsersAPI(self)
 
     @property
     def widgets(self):

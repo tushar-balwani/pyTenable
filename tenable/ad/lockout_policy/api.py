@@ -18,7 +18,7 @@ from tenable.ad.lockout_policy.schema import LockoutPolicySchema
 from tenable.base.endpoint import APIEndpoint
 
 
-class LDAPConfigurationAPI(APIEndpoint):
+class LockoutPolicyAPI(APIEndpoint):
     _path = 'lockout-policy'
     _schema = LockoutPolicySchema()
 
@@ -34,7 +34,7 @@ class LDAPConfigurationAPI(APIEndpoint):
 
             >>> tad.lockout_policy.details()
         '''
-        return self._get()
+        return self._schema.load(self._get())
 
     def update(self,
                **kwargs) -> None:
