@@ -9,8 +9,8 @@ def test_users_list(api):
                   f'{RE_BASE}/users',
                   json=[{
                       'id': 1,
-                      'surname': 'Miller',
-                      'name': 'Rob',
+                      'surname': 'surname',
+                      'name': 'name',
                       'email': 'test@domain.com',
                       'lockedOut': True,
                       'department': 'AD',
@@ -26,8 +26,8 @@ def test_users_list(api):
     resp = api.users.list()
     assert isinstance(resp, list)
     assert len(resp) == 1
-    assert resp[0]['name'] == 'Rob'
-    assert resp[0]['surname'] == 'Miller'
+    assert resp[0]['name'] == 'name'
+    assert resp[0]['surname'] == 'surname'
 
 
 @responses.activate
@@ -36,8 +36,8 @@ def test_users_create(api):
                   f'{RE_BASE}/users',
                   json=[{
                       'id': 1,
-                      'surname': 'Miller',
-                      'name': 'Rob',
+                      'surname': 'surname',
+                      'name': 'name',
                       'email': 'test@domain.com',
                       'lockedOut': True,
                       'department': 'AD',
@@ -50,13 +50,13 @@ def test_users_create(api):
                       'eulaVersion': 1
                   }]
                   )
-    resp = api.users.create(name='Rob',
+    resp = api.users.create(name='name',
                             email='test@domain.com',
                             password='password',
                             active=True)
     assert isinstance(resp, list)
     assert len(resp) == 1
-    assert resp[0]['name'] == 'Rob'
+    assert resp[0]['name'] == 'name'
     assert resp[0]['active'] is True
 
 
@@ -66,8 +66,8 @@ def test_users_info(api):
                   f'{RE_BASE}/users/whoami',
                   json={
                       'id': 1,
-                      'surname': 'Miller',
-                      'name': 'Rob',
+                      'surname': 'surname',
+                      'name': 'name',
                       'email': 'test@domain.com',
                       'lockedOut': True,
                       'department': 'AD',
@@ -92,7 +92,7 @@ def test_users_info(api):
                   )
     resp = api.users.info()
     assert isinstance(resp, dict)
-    assert resp['name'] == 'Rob'
+    assert resp['name'] == 'name'
     assert resp['active'] is True
     assert resp['roles'][0]['id'] == 1
     assert resp['roles'][0]['name'] == 'Admin'
@@ -109,8 +109,8 @@ def test_users_details(api):
                   f'{RE_BASE}/users/1',
                   json={
                       'id': 1,
-                      'surname': 'Miller',
-                      'name': 'Rob',
+                      'surname': 'surname',
+                      'name': 'name',
                       'email': 'test@domain.com',
                       'lockedOut': True,
                       'department': 'AD',
@@ -126,8 +126,8 @@ def test_users_details(api):
     resp = api.users.details('1')
     assert isinstance(resp, dict)
     assert resp['id'] == 1
-    assert resp['name'] == 'Rob'
-    assert resp['surname'] == 'Miller'
+    assert resp['name'] == 'name'
+    assert resp['surname'] == 'surname'
 
 
 @responses.activate
@@ -136,8 +136,8 @@ def test_users_update(api):
                   f'{RE_BASE}/users/1',
                   json={
                       'id': 1,
-                      'surname': 'Miller',
-                      'name': 'Rob',
+                      'surname': 'surname',
+                      'name': 'name',
                       'email': 'test@domain.com',
                       'lockedOut': True,
                       'department': 'AD',
@@ -151,15 +151,21 @@ def test_users_update(api):
                   }
                   )
     resp = api.users.update(1,
-                            name='Rob',
-                            active=False)
+                            name='name',
+                            email='test@domain.com',
+                            password='password',
+                            surname='surname',
+                            department='AD',
+                            biography='some biography',
+                            active=False,
+                            pictures=[1, 2])
     assert isinstance(resp, dict)
-    assert resp['name'] == 'Rob'
+    assert resp['name'] == 'name'
     assert resp['active'] is False
 
 
 @responses.activate
-def test_users_update(api):
+def test_users_delete(api):
     responses.add(responses.DELETE,
                   f'{RE_BASE}/users/1',
                   json=None
